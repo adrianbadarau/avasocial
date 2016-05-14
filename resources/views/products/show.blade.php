@@ -31,20 +31,27 @@
             <div class="col-xs-12">
                 <div class="panel panel-white">
                     <div class="panel-body">
-                        <h2>{{ $product->name }}</h2>
+                        <h2>{{ $product->name }} | Total Clicks :{{$sharesTotal}}</h2>
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
                                         <th>User Email</th>
-                                        <th>Shares</th>
+                                        <th>Clicks Generated</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    @forelse($userShares as $sharer => $shares)
                                     <tr>
-                                        <td></td>
+                                        <td>{{$sharer}}</td>
+                                        <td>{{$shares}}</td>
                                     </tr>
+                                    @empty
+                                    <tr>
+                                        <td colspan="2">THERE ARE NOT SHARES</td>
+                                    </tr>
+                                    @endforelse
                                     </tbody>
                                 </table>
                             </div>

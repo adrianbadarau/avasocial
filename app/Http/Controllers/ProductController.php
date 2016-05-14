@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Avangate\ApiSdk;
 use App\Product;
+use App\UserSharedLink;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -59,17 +60,29 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($id, UserSharedLink $userSharedLink, \App\Bitly\ApiSdk $bitlyApi)
     {
         /** @var Product $product */
         $product = Product::find($id);
-        $sharesTotal = $product->countShares();
+        $sharesTotal = 0;
+        $userShares = [];
+        $allShares = $userSharedLink->getAllSharedByProduct($product->avangate_id);
+        foreach ($allShares as $share){
+            $linkShares = $bitlyApi->getLinkClicks($share->short_link);
+            $sharesTotal += $linkShares;
+            if(isset($userShares[$share->user_email])){
+                $userShares[$share->user_email] += $linkShares;
+            }else{
+                $userShares[$share->user_email] = $linkShares;
+            }
+            
+        }
 
         if (is_null($product)) {
             return redirect()->back();
         }
 
-        return view('products.show', compact('product'));
+        return view('products.show', compact(['product','sharesTotal','userShares']));
     }
 
     /**

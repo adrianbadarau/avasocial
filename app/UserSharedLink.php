@@ -24,4 +24,10 @@ class UserSharedLink extends Model
             return $this;
         }
     }
+
+
+    public function getAllSharedByProduct($productID)
+    {
+        return $this->where('product_ids','LIKE',"%{$productID}")->get();
+    }
 }

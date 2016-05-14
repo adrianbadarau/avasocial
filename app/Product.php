@@ -14,9 +14,5 @@ class Product extends Model
         $shares = UserSharedLink::where('product_ids','LIKE',"%{$this->avangate_id}")->groupBy('user_email')->get();
         return $shares;
     }
-
-    public function countShares()
-    {
-        return UserSharedLink::where('product_ids','LIKE',"%{$this->avangate_id}")->count();
-    }
+    
 }
