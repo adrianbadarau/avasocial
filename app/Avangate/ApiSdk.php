@@ -50,5 +50,21 @@ class ApiSdk
         }
     }
 
+    public function isGoodAuthData()
+    {
+        $response = $this->client->get('products/', [
+            'query' => [
+                'Enabled' => 'true',
+                'Limit' => '1',
+            ]
+        ]);
+
+        if($response->getStatusCode() === 200){
+            return true;
+        }
+
+        return false;
+    }
+
 
 }
