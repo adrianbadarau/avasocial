@@ -31,17 +31,21 @@ class SocialController extends Controller
         $email = $request->get('email');
         $orderRef = $request->get('orderRef');
         $link = $this->productsLink.$ids.'&CUSTOMERID='.$email;
-        $shortlink = $this->bitlySdk->shortenLink($link);
-        $buttons = [
-            FacebookBuilder::generateShareButton($shortlink),
-            TwitterBuilder::generateShareButton($shortlink)
-        ];
-        UserSharedLink::create([
+        $user = new UserSharedLink([
             'user_email'=>$email,
             'avangate_order_ref'=>$orderRef,
-            'product_ids'=>$ids,
-            'short_link'=>$shortlink
-        ]);
+            'product_ids'=>$ids,]);
+        $user->createOrReturn();
+        if(!isset($user->short_link)){
+            $shortlink = $this->bitlySdk->shortenLink($link);
+            $user->short_link = $shortlink;
+            $user->save();
+        }
+
+        $buttons = [
+            FacebookBuilder::generateShareButton($user->short_link),
+            TwitterBuilder::generateShareButton($user->short_link)
+        ];
         return response()->json($buttons, 200);
     }
 
