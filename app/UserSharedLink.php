@@ -11,8 +11,15 @@ class UserSharedLink extends Model
 
     public function createOrReturn()
     {
-        if($this->where('user_email','=',$this->email)->count()){
-            return $this->where('user_email','=',$this->short_link)->first();
+        $gigi = $this
+            ->where('user_email','=',$this->user_email)
+            ->where('product_ids','=',$this->product_ids)
+            ->count();
+        if($this
+            ->where('user_email','=',$this->user_email)
+            ->where('product_ids','=',$this->product_ids)
+            ->count()){
+            return $this->where('user_email','=',$this->short_link)->where('product_ids','=',$this->product_ids)->first();
         }else{
             return $this;
         }

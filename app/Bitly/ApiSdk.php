@@ -44,4 +44,20 @@ class ApiSdk
             return $resp->getReasonPhrase();
         }
     }
+
+    public function getLinkClicks($link)
+    {
+        $resp = $this->client->get('v3/link/clicks',[
+            'query'=>[
+                'access_token'=>$this->token,
+                'link'=>$link,
+            ]
+        ]);
+
+        if ($resp->getStatusCode() === 200){
+            return json_decode($resp->getBody())->data->link_clicks;
+        }else{
+            return $resp->getReasonPhrase();
+        }
+    }
 }
