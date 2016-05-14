@@ -19,19 +19,32 @@ class ApiSdk
      */
     public function __construct()
     {
-        $date = gmdate('Y-m-d H:i:s');
-        $code = \Auth::user()->code;
-        $key = \Auth::user()->key;
-        $hash = hash_hmac('md5', strlen($code) . $code . strlen($date) . $date, $key);
+
         $this->client = new Client([
             'base_url' => 'https://api.avangate.com/3.0/',
             'defaults' => [
-                'headers' => [
-                    'X-Avangate-Authentication' => ' code="' . $code . '" date="' . $date . '" hash="' . $hash . '"',
-                    'Accept' => "application/json"
-                ]
+                'headers' => $this->generateHeaders()
             ]
         ]);
+    }
+
+    private function generateHeaders($vKey=null,$vCode=null)
+    {
+        $date = gmdate('Y-m-d H:i:s');
+        $code = \Auth::user()->code;
+        if($vCode !== null){
+            $code = $vCode;
+        }
+        $key = \Auth::user()->key;
+        if($vKey !== null){
+            $key = $vKey;
+        }
+        $hash = hash_hmac('md5', strlen($code) . $code . strlen($date) . $date, $key);
+        return [
+            'X-Avangate-Authentication' => ' code="' . $code . '" date="' . $date . '" hash="' . $hash . '"',
+            'Accept' => "application/json"
+        ];
+
     }
 
     public function getAllProducts()
@@ -50,9 +63,10 @@ class ApiSdk
         }
     }
 
-    public function isGoodAuthData()
+    public function isGoodAuthData($key, $code)
     {
         $response = $this->client->get('products/', [
+            'headers'=>$this->generateHeaders($key,$code),
             'query' => [
                 'Enabled' => 'true',
                 'Limit' => '1',
