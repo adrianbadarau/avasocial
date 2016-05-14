@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Bitly\ApiSdk;
+use App\HelperClasses\FacebookBuilder;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -29,7 +30,11 @@ class SocialController extends Controller
         $orderRef = $request->get('orderRef');
         $link = $this->productsLink.$ids.'&CUSTOMERID='.$email;
         $shortlink = $this->bitlySdk->shortenLink($link);
-        return response()->json($shortlink, 200);
+        
+        $resp = new \stdClass();
+        $resp->facebookButton = FacebookBuilder::generateShareButton($link);
+
+        return response()->json(json_encode($resp), 200);
     }
 
     public function shortenLink()
