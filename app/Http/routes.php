@@ -57,3 +57,5 @@ Route::group(['middleware' => ['cors']], function () {
 
 Route::get('products/seed', 'ProductController@seedProducts');
 Route::resource('products', 'ProductController');
+
+Route::get('sendEmail/{token}', 'CronController@sendCoupons');
