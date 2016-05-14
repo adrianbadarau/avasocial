@@ -50,7 +50,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('settings/account', 'SettingsController@postAccount');
 });
 
-Route::get('social', 'SocialController@getIcons');
+Route::group(['middleware' => ['cors']], function () {
+    Route::get('social', 'SocialController@getIcons');
+});
+
 
 Route::get('products/seed', 'ProductController@seedProducts');
 Route::resource('products', 'ProductController');
