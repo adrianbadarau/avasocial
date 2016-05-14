@@ -32,7 +32,7 @@ class TwitterBuilder
           return t;
         }(document, "script", "twitter-wjs"));</script>
         <a  class="twitter-share-button"
-            href="https://twitter.com/intent/tweet?text={$prePopulateBeforLink}{$link}"
+            href="https://twitter.com/intent/tweet?text={$prePopulateBeforLink}&url={$link}"
             data-size="large">
                 {$buttonText}
         </a>
