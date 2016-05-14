@@ -35,7 +35,6 @@ Route::post('password/email', 'Auth\PasswordController@postEmail');
 Route::get('password/reset/{token}', 'Auth\PasswordController@getReset');
 Route::post('password/reset', 'Auth\PasswordController@postReset');
 
-
 Route::group(['middleware' => ['auth']], function () {
     Route::get('settings/profile', 'SettingsController@getProfile');
     Route::post('settings/profile', 'SettingsController@postProfile');
@@ -44,3 +43,5 @@ Route::group(['middleware' => ['auth']], function () {
     Route::get('settings/account', 'SettingsController@getAccount');
     Route::post('settings/account', 'SettingsController@postAccount');
 });
+
+Route::get('social', 'SocialController@getIcons');
