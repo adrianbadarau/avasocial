@@ -28,7 +28,7 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12">
+            <div class="col-xs-8">
                 <div class="panel panel-white">
                     <div class="panel-body">
                         <h2>{{ $product->name }} | Total Clicks :{{$sharesTotal}}</h2>
@@ -56,6 +56,25 @@
                                 </table>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-4">
+                <div class="panel panel-white">
+                    <div class="panel-body">
+                        <form action="{{route('products.edit',$product->id)}}" method="post" role="form">
+                        	<legend>Set Product Options</legend>
+                            {!! csrf_field() !!}
+                            <input name="_method" type="hidden" value="PUT">
+                        	<div class="form-group">
+                        		<label for=""></label>
+                        		<input type="text" class="form-control" name="" id="" placeholder="Input...">
+                        	</div>
+                        
+                        	
+                        
+                        	<button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
                     </div>
                 </div>
             </div>
