@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Avangate\ApiSdk;
+use App\ProductModel;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -16,11 +17,23 @@ class SetupController extends Controller
      */
     public function __construct()
     {
-        $this->avangateSDK = new ApiSdk();
     }
 
     public function seedProducts()
     {
-        
+        $sdk = new ApiSdk();
+        $products = $sdk->getAllProducts();
+        foreach ($products as $product){
+            if($product->ProductCode){
+                ProductModel::create([
+                    'name'=>$product->ProductName,
+                    'avangate_id'=>$product->AvangateId,
+                    'avangate_product_code'=>$product->ProductCode,
+                    'user_id'=>\Auth::user()->id,
+                    'data'=>json_encode($product)
+                ]);
+            }
+
+        }
     }
 }

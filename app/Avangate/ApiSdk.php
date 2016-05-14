@@ -7,13 +7,12 @@
  */
 
 namespace App\Avangate;
-
-
 use GuzzleHttp\Client;
 
 class ApiSdk
 {
     protected $client;
+    protected $headers;
 
     /**
      * ApiSdk constructor.
@@ -25,10 +24,12 @@ class ApiSdk
         $key = \Auth::user()->key;
         $hash = hash_hmac('md5', strlen($code) . $code . strlen($date) . $date, $key);
         $this->client = new Client([
-            'base_uri' => 'https://api.avangate.com/3.0/',
-            'headers' => [
-                'X-Avangate-Authentication' => 'code="' . $code . '" date="' . $date . '" hash="' . $hash . '"',
-                'Accept' => "application/json"
+            'base_url' => 'https://api.avangate.com/3.0/',
+            'defaults' => [
+                'headers' => [
+                    'X-Avangate-Authentication' => ' code="' . $code . '" date="' . $date . '" hash="' . $hash . '"',
+                    'Accept' => "application/json"
+                ]
             ]
         ]);
     }
@@ -42,10 +43,10 @@ class ApiSdk
             ]
         ]);
 
-        if($response->getStatusCode() === 200){
+        if ($response->getStatusCode() === 200) {
             return json_decode($response->getBody());
-        }else{
-            throw new \Exception('API http error '.$response->getStatusCode().' with '.$response->getReasonPhrase(),500);
+        } else {
+            throw new \Exception('API http error ' . $response->getStatusCode() . ' with ' . $response->getReasonPhrase(), 500);
         }
     }
 
