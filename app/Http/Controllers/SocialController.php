@@ -22,7 +22,7 @@ class SocialController extends Controller
     public function __construct()
     {
         $this->bitlySdk = new ApiSdk();
-        $this->productsLink = 'https://backend.avangate.com/order/product.php?PRODS=';
+        $this->productsLink = 'https://secure.avangate.com/order/product.php?PRODS=';
     }
 
     public function getIcons(Request $request)
