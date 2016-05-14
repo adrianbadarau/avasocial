@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Avangate\ApiSdk;
-use App\ProductModel;
+use App\Product;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -12,12 +12,15 @@ use App\Http\Controllers\Controller;
 class SetupController extends Controller
 {
     private $avangateSDK;
+
     /**
      * SetupController constructor.
+     *
+     * @param ApiSdk $apiSdk
      */
-    public function __construct()
+    public function __construct(ApiSdk $apiSdk)
     {
-        $this->avangateSDK = new ApiSdk();
+        $this->avangateSDK = $apiSdk;
     }
 
     public function seedProducts()
@@ -25,7 +28,7 @@ class SetupController extends Controller
         $products = $this->avangateSDK->getAllProducts();
         foreach ($products as $product){
             if($product->ProductCode){
-                ProductModel::create([
+                Product::create([
                     'name'=>$product->ProductName,
                     'avangate_id'=>$product->AvangateId,
                     'avangate_product_code'=>$product->ProductCode,

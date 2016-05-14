@@ -1,16 +1,26 @@
 var elixir = require('laravel-elixir');
 
-/*
- |--------------------------------------------------------------------------
- | Elixir Asset Management
- |--------------------------------------------------------------------------
- |
- | Elixir provides a clean, fluent API for defining some basic Gulp tasks
- | for your Laravel application. By default, we are compiling the Sass
- | file for our application, as well as publishing vendor resources.
- |
- */
-
 elixir(function(mix) {
-    mix.sass('app.scss');
+    mix.less([
+    'bootstrap.less',
+    '../../../node_modules/font-awesome/less/font-awesome.less',
+    'core.less',
+    'components.less',
+    'colors.less'
+    ], 'resources/assets/css');
+
+    mix.styles('*.css', 'public/css/app.css');
+
+    mix.scripts(
+      [
+          '../../../node_modules/jquery/dist/jquery.min.js',
+          '../../../node_modules/bootstrap-less/js/bootstrap.min.js',
+          'plugins/ui/drilldown.js',
+          'plugins/forms/styling/switchery.min.js',
+          'plugins/forms/inputs/autosize.min.js',
+          'plugins/forms/tags/tagsinput.min.js',
+          'core/app.js',
+          'custom.js'
+      ],
+      'public/js/app.js');
 });

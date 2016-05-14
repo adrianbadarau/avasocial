@@ -41,7 +41,7 @@ class ApiSdk
         }
         $hash = hash_hmac('md5', strlen($code) . $code . strlen($date) . $date, $key);
         return [
-            'X-Avangate-Authentication' => ' code="' . $code . '" date="' . $date . '" hash="' . $hash . '"',
+            'X-Avangate-Authentication' => 'code="' . $code . '" date="' . $date . '" hash="' . $hash . '"',
             'Accept' => "application/json"
         ];
 
@@ -65,16 +65,20 @@ class ApiSdk
 
     public function isGoodAuthData($key, $code)
     {
-        $response = $this->client->get('products/', [
-            'headers'=>$this->generateHeaders($key,$code),
-            'query' => [
+        try {
+            $response = $this->client->get('products/', [
+              'headers'=>$this->generateHeaders($key,$code),
+              'query' => [
                 'Enabled' => 'true',
                 'Limit' => '1',
-            ]
-        ]);
+              ]
+            ]);
 
-        if($response->getStatusCode() === 200){
-            return true;
+            if($response->getStatusCode() === 200){
+                return true;
+            }
+        } catch (\Exception $e) {
+
         }
 
         return false;

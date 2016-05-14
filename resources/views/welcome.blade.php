@@ -1,45 +1,38 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Laravel</title>
+@extends('layouts.app')
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+@section('title')
+    Welcome to Avasoci.al
+@endsection
 
-        <style>
-            html, body {
-                height: 100%;
-            }
+@section('header')
+@endsection
 
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
+@section('page-container-addon')
+    page-container
+@endsection
 
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
+@section('content')
 
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
+    <div class="content-wrapper">
+        <div class="content">
+            <div class="text-center content-group">
+                <h1 class="error-title">AVASOCI.AL</h1>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-lg-offset-4 col-sm-6 col-sm-offset-3">
+                    <form action="#" class="main-search">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <a href="{{ url('settings/account') }}" class="btn btn-primary btn-block content-group"><i class="icon-circle-right2 position-left"></i> Setup account</a>
+                            </div>
 
-            .title {
-                font-size: 96px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title">Laravel 5</div>
+                            <div class="col-sm-6">
+                                <a href="{{ url('products') }}" class="btn btn-default btn-block content-group"><i class="icon-puzzle2 position-left"></i> Edit products</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </body>
-</html>
+    </div>
+@endsection
