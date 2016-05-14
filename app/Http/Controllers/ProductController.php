@@ -15,11 +15,9 @@ class ProductController extends Controller
 {
     protected  $avangateSDK;
 
-    public function __construct(ApiSdk $apiSdk)
+    public function __construct()
     {
         $this->middleware('auth');
-
-        $this->avangateSDK = $apiSdk;
     }
 
     /**
@@ -125,6 +123,7 @@ class ProductController extends Controller
 
     public function seedProducts()
     {
+        $this->avangateSDK = new ApiSdk();
         $products = $this->avangateSDK->getAllProducts();
         foreach ($products as $product){
             if($product->ProductCode){
