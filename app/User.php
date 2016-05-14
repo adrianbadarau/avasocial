@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+use Illuminate\Support\Facades\Crypt;
 
 class User extends Model implements AuthenticatableContract,
                                     AuthorizableContract,
@@ -28,7 +29,7 @@ class User extends Model implements AuthenticatableContract,
      *
      * @var array
      */
-    protected $fillable = ['name', 'email', 'password'];
+    protected $fillable = ['firstname', 'lastname', 'email', 'password'];
 
     /**
      * The attributes excluded from the model's JSON form.
@@ -36,4 +37,38 @@ class User extends Model implements AuthenticatableContract,
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+
+    public function setCodeAttribute($value)
+    {
+        $this->attributes['code'] = Crypt::encrypt($value);
+    }
+
+    public function getCodeAttribute($value)
+    {
+        try {
+            if ($value) {
+                $value = Crypt::decrypt($value);
+            }
+            return $value;
+        } catch (DecryptException $e) {
+            //TODO: maybe send email to administrator to inform of the problem
+        }
+    }
+
+    public function setKeyAttribute($value)
+    {
+        $this->attributes['key'] = Crypt::encrypt($value);
+    }
+
+    public function getKeyAttribute($value)
+    {
+        try {
+            if ($value) {
+                $value = Crypt::decrypt($value);
+            }
+            return $value;
+        } catch (DecryptException $e) {
+            //TODO: maybe send email to administrator to inform of the problem
+        }
+    }
 }
