@@ -30,8 +30,7 @@ class SocialController extends Controller
         $email = $request->get('email');
         $orderRef = $request->get('orderRef');
         $link = $this->productsLink.$ids.'&CUSTOMERID='.$email;
-
-        $shortlink = $this->bitlySdk->shortenLink('https://ec2-52-16-181-60.eu-west-1.compute.amazonaws.com/products');
+        $shortlink = $this->bitlySdk->shortenLink($link);
         $buttons = [
             FacebookBuilder::generateShareButton($shortlink),
             TwitterBuilder::generateShareButton($shortlink)
