@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Bitly\ApiSdk;
 use App\HelperClasses\FacebookBuilder;
 use App\HelperClasses\TwitterBuilder;
+use App\UserSharedLink;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -35,6 +36,12 @@ class SocialController extends Controller
             FacebookBuilder::generateShareButton($shortlink),
             TwitterBuilder::generateShareButton($shortlink)
         ];
+        UserSharedLink::create([
+            'user_email'=>$email,
+            'avangate_order_ref'=>$orderRef,
+            'product_ids'=>$ids,
+            'short_link'=>$shortlink
+        ]);
         return response()->json($buttons, 200);
     }
 
