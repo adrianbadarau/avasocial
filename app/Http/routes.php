@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('/seedProduct', 'SetupController@seedProducts');
+
 Route::get('/', function () {
     return view('welcome');
 });
+
+
