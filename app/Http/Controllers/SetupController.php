@@ -17,12 +17,12 @@ class SetupController extends Controller
      */
     public function __construct()
     {
+        $this->avangateSDK = new ApiSdk();
     }
 
     public function seedProducts()
     {
-        $sdk = new ApiSdk();
-        $products = $sdk->getAllProducts();
+        $products = $this->avangateSDK->getAllProducts();
         foreach ($products as $product){
             if($product->ProductCode){
                 ProductModel::create([
