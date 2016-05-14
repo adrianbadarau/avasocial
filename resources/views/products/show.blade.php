@@ -12,7 +12,9 @@
                 </div>
 
                 <div class="media-body">
-                    <h1>{{ $product->name }} <small class="display-block"><a class="text-white" href="#">Marketing</a></small></h1>
+                    <h1>{{ $product->name }}
+                        <small class="display-block"><a class="text-white" href="#">Marketing</a></small>
+                    </h1>
                 </div>
 
                 <div class="media-right media-middle">
@@ -29,7 +31,24 @@
             <div class="col-xs-12">
                 <div class="panel panel-white">
                     <div class="panel-body">
-                        {{ $product->name }}
+                        <h2>{{ $product->name }}</h2>
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>User Email</th>
+                                        <th>Shares</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

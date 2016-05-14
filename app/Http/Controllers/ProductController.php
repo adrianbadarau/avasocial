@@ -56,13 +56,14 @@ class ProductController extends Controller
 
     /**
      * Display the specified resource.
-     *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
     {
+        /** @var Product $product */
         $product = Product::find($id);
+        $sharesTotal = $product->countShares();
 
         if (is_null($product)) {
             return redirect()->back();
