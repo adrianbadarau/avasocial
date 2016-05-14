@@ -43,14 +43,14 @@
                                     </thead>
                                     <tbody>
                                     @forelse($userShares as $sharer => $shares)
-                                    <tr>
-                                        <td>{{$sharer}}</td>
-                                        <td>{{$shares}}</td>
-                                    </tr>
+                                        <tr>
+                                            <td>{{$sharer}}</td>
+                                            <td>{{$shares}}</td>
+                                        </tr>
                                     @empty
-                                    <tr>
-                                        <td colspan="2">THERE ARE NOT SHARES</td>
-                                    </tr>
+                                        <tr>
+                                            <td colspan="2">THERE ARE NOT SHARES</td>
+                                        </tr>
                                     @endforelse
                                     </tbody>
                                 </table>
@@ -62,18 +62,20 @@
             <div class="col-xs-4">
                 <div class="panel panel-white">
                     <div class="panel-body">
-                        <form action="{{route('products.edit',$product->id)}}" method="post" role="form">
-                        	<legend>Set Product Options</legend>
+                        <form action="{{route('products.update',$product->id)}}" method="post" role="form">
+                            <legend>Set Product Options</legend>
                             {!! csrf_field() !!}
                             <input name="_method" type="hidden" value="PUT">
-                        	<div class="form-group">
-                        		<label for=""></label>
-                        		<input type="text" class="form-control" name="" id="" placeholder="Input...">
-                        	</div>
-                        
-                        	
-                        
-                        	<button type="submit" class="btn btn-primary">Submit</button>
+                            <div class="form-group">
+                                <label for="coupon">Add Coupon</label>
+                                <input type="text" class="form-control" name="coupon" id="coupon" placeholder="Coupon..." value="{!! isset($product->coupon) ? $product->coupon : '' !!}">
+                            </div>
+                            <div class="form-group">
+                                <label for="limit">Add limit</label>
+                                <input type="text" class="form-control" name="limit" id="limit" placeholder="Limit..." value="{!! isset($product->limit) ? $product->limit : '' !!}">
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">Save</button>
                         </form>
                     </div>
                 </div>

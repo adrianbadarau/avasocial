@@ -105,7 +105,11 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::find($id);
+        $product->coupon = $request->get('coupon');
+        $product->limit = $request->get('limit');
+        $product->save();
+        return redirect()->back();
     }
 
     /**
