@@ -34,6 +34,7 @@ class ApiSdk
         $resp = $this->client->get('v3/shorten',[
             'query'=>[
                 'access_token'=>$this->token,
+                'domain'=>'bitly.com',
                 'longUrl'=>$link,
             ]
         ]);
