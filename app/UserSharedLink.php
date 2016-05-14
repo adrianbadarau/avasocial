@@ -19,7 +19,7 @@ class UserSharedLink extends Model
             ->where('user_email','=',$this->user_email)
             ->where('product_ids','=',$this->product_ids)
             ->count()){
-            return $this->where('user_email','=',$this->short_link)->where('product_ids','=',$this->product_ids)->first();
+            return $this->where('user_email','=',$this->user_email)->where('product_ids','=',$this->product_ids)->first();
         }else{
             return $this;
         }

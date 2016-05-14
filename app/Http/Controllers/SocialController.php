@@ -35,7 +35,7 @@ class SocialController extends Controller
             'user_email'=>$email,
             'avangate_order_ref'=>$orderRef,
             'product_ids'=>$ids,]);
-        $user->createOrReturn();
+        $user = $user->createOrReturn();
         if(!isset($user->short_link)){
             $shortlink = $this->bitlySdk->shortenLink($link);
             $user->short_link = $shortlink;
