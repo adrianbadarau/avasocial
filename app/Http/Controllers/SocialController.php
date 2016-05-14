@@ -32,7 +32,7 @@ class SocialController extends Controller
         $shortlink = $this->bitlySdk->shortenLink($link);
         
         $resp = new \stdClass();
-        $resp->facebookButton = FacebookBuilder::generateShareButton($link);
+        $resp->facebookButton = FacebookBuilder::generateShareButton($shortlink);
 
         return response()->json(json_encode($resp), 200);
     }
